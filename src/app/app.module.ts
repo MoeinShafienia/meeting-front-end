@@ -24,6 +24,7 @@ import { ResetpasswordComponent } from './components/resetpassword/resetpassword
 import { AddstudentsComponent } from './components/addstudents/addstudents.component';
 import {DeletestudentsComponent} from './components/deletestudents/deletestudents.component';
 import { EditstudentsComponent } from './components/editstudents/editstudents.component';
+import { NzFormModule } from 'ng-zorro-antd/form';
 
 registerLocaleData(en);
 
@@ -50,7 +51,8 @@ registerLocaleData(en);
     ReactiveFormsModule,
     DragDropModule,
     ScrollingModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    NzFormModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],

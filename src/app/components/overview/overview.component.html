@@ -3,9 +3,17 @@
   <ul nz-menu nzMode="horizontal">
     <li nz-menu-item nzSelected>
       <i nz-icon nzType="home"></i>
-      Home
+      Student
     </li>
-    <li nz-submenu nzTitle="Settings" nzIcon="setting">
+    <li nz-menu-item nzSelected>
+      <i nz-icon nzType="home"></i>
+      Professor
+    </li>
+    <li nz-menu-item nzSelected>
+      <i nz-icon nzType="home"></i>
+      Meeting
+    </li>
+    <!-- <li nz-submenu nzTitle="Settings" nzIcon="setting">
       <ul>
         <li nz-menu-group nzTitle="">
           <ul>
@@ -14,7 +22,7 @@
         </li>
 
       </ul>
-    </li>
+    </li> -->
     <li nz-menu-item>
       <i nz-icon nzType="logout"></i>
       Logout
@@ -51,19 +59,19 @@
 <nz-table #basicTable class="studentsTable" >
   <thead>
     <tr>
-      <th>First Name</th>
-      <th>Surname</th>
-      <th>Age</th>
-      <th>Gender</th>
+      <th>Name</th>
+      <th>National Code</th>
+      <th>Email</th>
+      <th>phone Number</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of StudentsData">
-      <td>{{ data.firstname }}</td>
-      <td>{{ data.lastname }}</td>
-      <td>{{ data.age }}</td>
-      <td>{{ data.gender }}</td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.nationalCode }}</td>
+      <td>{{ data.email }}</td>
+      <td>{{ data.phoneNumber }}</td>
       <td>
 
        <app-editstudents></app-editstudents>
