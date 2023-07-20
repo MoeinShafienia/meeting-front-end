@@ -1,0 +1,40 @@
+<div class="container">
+    <nz-table #professorStatus class="studentsTable" [nzData]="professorsStatus?.length > 0 ? professorsStatus : undefined">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let professor of professorsStatus">
+            <td>{{ professor.name }}</td>
+            <td>{{ professor.status }}</td>
+            <td>{{ professor.description }}</td>
+            <!--<td>
+                <app-editstudents></app-editstudents>
+                <nz-divider nzType="vertical"></nz-divider>
+                <app-deletestudents></app-deletestudents>
+
+            </td>-->
+        </tr>
+        </tbody>
+    </nz-table>
+
+
+    <nz-table #professor class="studentsTable" [nzData]="professorsStatus?.length > 0 ? professorsStatus : undefined">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th *ngFor="let header of professorsStatus[0].dateStatus">{{header.value}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let professor of professorsStatus">
+            <td>{{professor.name}}</td>
+            <td *ngFor="let time of professor.dateStatus">{{time.status}}</td>
+        </tr>
+        </tbody>
+    </nz-table>
+</div>

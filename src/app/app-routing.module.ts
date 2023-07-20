@@ -5,6 +5,7 @@ import { OverviewComponent } from './components/overview/overview.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { SignupComponent} from './components/signup/signup.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
+import {MeetingComponent} from './components/meeting/meeting.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -12,7 +13,7 @@ const routes: Routes = [
   {path: 'overview', component: OverviewComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'resetpassword', component: ResetpasswordComponent},
-  {path: "**", component: PagenotfoundComponent}
+  {path: 'meeting', component: MeetingComponent},
 
 ];
 
@@ -21,4 +22,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [OverviewComponent, PagenotfoundComponent, LoginComponent, SignupComponent, ResetpasswordComponent]
+export const routingComponents = [OverviewComponent, PagenotfoundComponent, LoginComponent, SignupComponent, ResetpasswordComponent, MeetingComponent]

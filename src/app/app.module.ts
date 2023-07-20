@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientJsonpModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OverviewComponent } from './components/overview/overview.component';
-import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
+import { DemoNgZorroAntdModule } from './ng-zorro/ng-zorro-antd.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -25,6 +25,8 @@ import { AddstudentsComponent } from './components/addstudents/addstudents.compo
 import {DeletestudentsComponent} from './components/deletestudents/deletestudents.component';
 import { EditstudentsComponent } from './components/editstudents/editstudents.component';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import {MeetingComponent} from './components/meeting/meeting.component';
+import { MeetingDetailComponent } from './components/meeting/meeting-detail/meeting-detail.component';
 
 registerLocaleData(en);
 
@@ -39,7 +41,9 @@ registerLocaleData(en);
     ResetpasswordComponent,
     AddstudentsComponent,
     DeletestudentsComponent,
-    EditstudentsComponent
+    EditstudentsComponent,
+    MeetingComponent,
+    MeetingDetailComponent,
   ],
   imports: [
     BrowserModule,

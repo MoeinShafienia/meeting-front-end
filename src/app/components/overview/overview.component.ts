@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-import { Student } from 'src/app/Student';
+import { Student } from 'src/app/models/Student';
 import { StudentsService } from 'src/app/services/students.service';
 
 @Component({
