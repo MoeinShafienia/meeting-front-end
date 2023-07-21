@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
     providedIn: 'root'
 })
 export class CrudService {
-    user$ = new BehaviorSubject<any>(null);
+    private user$ = new BehaviorSubject<any>(null);
     private api = 'http://localhost:3000/api';
     private professorsStatus$ = new BehaviorSubject<Partial<ProfessorStatus>[]>([]);
     private meetingInfo$ = new BehaviorSubject<MeetingInfo>(null);
@@ -130,5 +130,20 @@ export class CrudService {
     logout(): void {
         localStorage.removeItem('user');
         this.user$.next(null);
+        this.router.navigate(['/login']);
+    }
+
+    getUser$(): Observable<any> {
+        return this.user$.asObservable();
+    }
+
+    autoLogin() {
+        const user: any = JSON.parse(localStorage.getItem('user'));
+        if(user) {
+            this.user$.next({...user});
+        } else {
+            this.logout();
+        }
+
     }
 }

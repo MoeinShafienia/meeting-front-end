@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between align-items-center nav-menu">
-    <ul nz-menu nzMode="horizontal" *ngIf="(crudService.user$ | async)">
+    <ul nz-menu nzMode="horizontal" *ngIf="user">
         <li nz-menu-item nzSelected [routerLink]="['/overview']">
             <i nz-icon nzType="home"></i>
             overview
@@ -17,9 +17,9 @@
             Meeting
         </li>
     </ul>
-    <ul nz-menu nzMode="horizontal" *ngIf="(crudService.user$ | async)">
+    <ul nz-menu nzMode="horizontal" *ngIf="user">
         <li nz-menu-item>
-            {{(crudService.user$ | async)?.name}}
+            {{user?.name}}
         </li>
         <li nz-menu-item>
             <i nz-icon nzType="logout"></i>
@@ -27,7 +27,7 @@
             <a href="#" (click)="logout()"></a>
         </li>
     </ul>
-    <ul nz-menu nzMode="horizontal" *ngIf="!(crudService.user$ | async)">
+    <ul nz-menu nzMode="horizontal" *ngIf="!user">
         <li nz-menu-item class="text-uppercase fw-bold">
             thesis defense
         </li>
