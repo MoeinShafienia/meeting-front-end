@@ -1,1 +1,37 @@
+<div class="d-flex justify-content-between align-items-center nav-menu">
+    <ul nz-menu nzMode="horizontal" *ngIf="(crudService.user$ | async)">
+        <li nz-menu-item nzSelected [routerLink]="['/overview']">
+            <i nz-icon nzType="home"></i>
+            overview
+        </li>
+        <li nz-menu-item nzSelected>
+            <i nz-icon nzType="home"></i>
+            Student
+        </li>
+        <li nz-menu-item nzSelected>
+            <i nz-icon nzType="home"></i>
+            Professor
+        </li>
+        <li nz-menu-item nzSelected [routerLink]="['/meeting']">
+            <i nz-icon nzType="home"></i>
+            Meeting
+        </li>
+    </ul>
+    <ul nz-menu nzMode="horizontal" *ngIf="(crudService.user$ | async)">
+        <li nz-menu-item>
+            {{(crudService.user$ | async)?.name}}
+        </li>
+        <li nz-menu-item>
+            <i nz-icon nzType="logout"></i>
+            Logout
+            <a href="#" (click)="logout()"></a>
+        </li>
+    </ul>
+    <ul nz-menu nzMode="horizontal" *ngIf="!(crudService.user$ | async)">
+        <li nz-menu-item class="text-uppercase fw-bold">
+            thesis defense
+        </li>
+    </ul>
+</div>
+
 <router-outlet></router-outlet>

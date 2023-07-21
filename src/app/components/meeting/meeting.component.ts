@@ -16,12 +16,16 @@ export class MeetingComponent implements OnInit {
     meetingInfo: MeetingInfo;
     dateRange: any = [];
     professors: Professor[] = [];
+    selectedProfessor: Professor;
+    AddProfessorDescription: string;
+    selectedFinalDateId: number;
+    meetingDateStatus: DateStatus[]
+    selectedDateStatus: DateStatus;
+    selectedDatesStatus: DateStatus[];
     dateRangeChanged: boolean;
     shouldAddProfessor: boolean;
-    selectedProfessorId: string;
-    AddProfessorDescription: string;
-    selectedfinalDateId: number;
-    meetingDateStatus: DateStatus[]
+    shouldFinalizeDate: boolean;
+    shouldSaveTimes: boolean;
 
     constructor(private crudService: CrudService) {
     }
@@ -59,22 +63,39 @@ export class MeetingComponent implements OnInit {
         this.dateRangeChanged = false;
     }
 
-    updateSelectedProfessor(professorId: string): void {
-        if(professorId != null) {
-            this.shouldAddProfessor = true;
-            this.selectedProfessorId = professorId;
-        }
-    }
-
-    updateSelectedfinalDateId(dateId: number): void {
-        // if(professorId != null) {
-        //     this.shouldAddProfessor = true;
-        //     this.selectedProfessorId = professorId;
-        // }
+    updateSelectedProfessor(professor: Professor): void {
+        this.selectedProfessor = professor;
+        this.validateAddProfessor();
     }
 
     addProfessor(): void {
         this.shouldAddProfessor = false;
-        this.crudService.addProfessor(this.meetingInfo.id, this.selectedProfessorId, this.AddProfessorDescription);
+        this.crudService.addProfessor(this.meetingInfo.id, this.selectedProfessor, this.AddProfessorDescription);
+    }
+
+    validateAddProfessor(): void {
+        this.shouldAddProfessor = this.selectedProfessor != null &&
+            this.AddProfessorDescription != null && this.AddProfessorDescription !== '';
+    }
+
+    updateSelectedFinalDateId(dateStatus: DateStatus): void {
+        this.shouldFinalizeDate = dateStatus != null;
+        this.selectedDateStatus = dateStatus;
+    }
+
+    addFinalizeDate(): void {
+        this.shouldFinalizeDate = false;
+        this.crudService.saveFinalizeDateStatus(this.meetingInfo.id, this.selectedDateStatus.id);
+    }
+
+    updateSelectedProfessorTimes(datesStatus: DateStatus[]): void {
+        this.shouldSaveTimes = datesStatus.length > 0;
+        this.selectedDatesStatus = datesStatus;
+    }
+
+    saveProfessorTimes(): void {
+        this.shouldSaveTimes = false;
+        const dateIds = this.selectedDatesStatus.map(d => d.id);
+        this.crudService.saveProfessorTimes(this.meetingInfo.id, dateIds);
     }
 }

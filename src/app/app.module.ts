@@ -26,7 +26,6 @@ import {DeletestudentsComponent} from './components/deletestudents/deletestudent
 import { EditstudentsComponent } from './components/editstudents/editstudents.component';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import {MeetingComponent} from './components/meeting/meeting.component';
-import { MeetingDetailComponent } from './components/meeting/meeting-detail/meeting-detail.component';
 import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
 
 registerLocaleData(en);
@@ -44,7 +43,6 @@ registerLocaleData(en);
     DeletestudentsComponent,
     EditstudentsComponent,
     MeetingComponent,
-    MeetingDetailComponent,
   ],
   imports: [
     BrowserModule,

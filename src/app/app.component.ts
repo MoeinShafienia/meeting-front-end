@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {CrudService} from './services/crud.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'student-app-zorro';
+
+    constructor(public crudService: CrudService) {
+    }
+
+    logout(): void {
+        this.crudService.logout();
+    }
 }

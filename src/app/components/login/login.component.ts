@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {CrudService} from '../../services/crud.service';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,7 @@ export class LoginComponent implements OnInit {
 
   validateForm!: FormGroup;
 
+  constructor(private fb: FormBuilder, private crudService: CrudService) { }
   submitForm(): void {
     for (const i in this.validateForm.controls) {
       if (this.validateForm.controls.hasOwnProperty(i)) {
@@ -17,13 +19,12 @@ export class LoginComponent implements OnInit {
         this.validateForm.controls[i].updateValueAndValidity();
       }
     }
+    this.crudService.login(this.validateForm.value.username, this.validateForm.value.password);
   }
-
-  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
+      username: [null, [Validators.required]],
       password: [null, [Validators.required]],
       remember: [true]
   });

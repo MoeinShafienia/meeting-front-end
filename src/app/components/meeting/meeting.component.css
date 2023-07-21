@@ -1,17 +1,10 @@
 .meeting{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    padding: 0 40rem;
+    height: calc(100%  - 100px);
+    width: 60%;
+    margin: 3rem auto 0;
 }
-
-/*.studentsTable{*/
-/*    margin-left: 15%;*/
-/*    margin-right: 15%;*/
-/*    margin-top: 2%;*/
-/*}*/
 
 
 

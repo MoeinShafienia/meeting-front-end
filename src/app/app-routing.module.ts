@@ -6,14 +6,15 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { SignupComponent} from './components/signup/signup.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import {MeetingComponent} from './components/meeting/meeting.component';
+import {AuthGuard} from './auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'overview', component: OverviewComponent},
+  {path: 'overview', component: OverviewComponent, canActivate:[AuthGuard]},
   {path: 'signup', component: SignupComponent},
-  {path: 'resetpassword', component: ResetpasswordComponent},
-  {path: 'meeting', component: MeetingComponent},
+  {path: 'resetpassword', component: ResetpasswordComponent, canActivate:[AuthGuard]},
+  {path: 'meeting', component: MeetingComponent, canActivate:[AuthGuard]},
 
 ];
 

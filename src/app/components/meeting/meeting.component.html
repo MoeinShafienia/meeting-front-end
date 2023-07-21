@@ -34,67 +34,75 @@
     </ng-template>
 
 
-    <div class="mt-3">
+    <div class="mt-3 border border-dark border-1 rounded-1 p-3 shadow">
         <div class="d-flex justify-content-start my-1">
-            <nz-select [ngModel]="selectedProfessorId" class="ps-1" nzShowSearch nzAllowClear
-                nzPlaceHolder="Select a professor" (ngModelChange)="updateSelectedProfessor($event)">
-                <nz-option *ngFor="let professor of professors" [nzValue]="professor.id"
-                    [nzLabel]="professor.name"></nz-option>
+            <nz-select [ngModel]="selectedProfessor" class="ps-1" nzShowSearch nzAllowClear
+                       nzPlaceHolder="Select a professor" (ngModelChange)="updateSelectedProfessor($event)">
+                <nz-option *ngFor="let professor of professors" [nzValue]="professor"
+                           [nzLabel]="professor.name"></nz-option>
             </nz-select>
-            <input nz-input placeholder="Description" [(ngModel)]="AddProfessorDescription" />
+            <input nz-input placeholder="Description" class="w-25 ms-1" [(ngModel)]="AddProfessorDescription"
+                   (ngModelChange)="validateAddProfessor()"/>
             <button nz-button nzType="primary" class="ms-2 " (click)="addProfessor()" [disabled]="!shouldAddProfessor">
                 add professor
             </button>
         </div>
         <nz-table #professorStatus class="studentsTable"
-            [nzData]="professorsStatus?.length > 0 ? professorsStatus : undefined">
+                  [nzData]="professorsStatus?.length > 0 ? professorsStatus : undefined">
             <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Status</th>
-                    <th>Description</th>
-                </tr>
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Description</th>
+            </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let professor of professorsStatus">
-                    <td>{{ professor.name }}</td>
-                    <td>{{ professor.status }}</td>
-                    <td>{{ professor.description }}</td>
-                    <!--<td>
-                   <app-editstudents></app-editstudents>
-                   <nz-divider nzType="vertical"></nz-divider>
-                   <app-deletestudents></app-deletestudents>
-
-               </td>-->
-                </tr>
+            <tr *ngFor="let professor of professorsStatus">
+                <td>{{ professor.name }}</td>
+                <td>{{ professor.status }}</td>
+                <td>{{ professor.description }}</td>
+            </tr>
             </tbody>
         </nz-table>
     </div>
 
-    <div class="mt-3">
+    <div class="mt-3 border border-dark border-1 rounded-1 p-3 shadow">
         <nz-table *ngIf="professorsStatus?.length > 0" #professor class="studentsTable"
-            [nzData]="professorsStatus?.length > 0 ? professorsStatus : undefined">
+                  [nzData]="professorsStatus?.length > 0 ? professorsStatus : undefined">
             <thead>
-                <tr>
-                    <th>Name</th>
-                    <th *ngFor="let header of professorsStatus[0].dateStatus">{{header.value}}</th>
-                </tr>
+            <tr>
+                <th>Name</th>
+                <th *ngFor="let header of professorsStatus[0].dateStatus">{{header.value}}</th>
+            </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let professor of professorsStatus">
-                    <td>{{professor.name}}</td>
-                    <td *ngFor="let time of professor.dateStatus">{{time.status}}</td>
-                </tr>
+            <tr *ngFor="let professor of professorsStatus">
+                <td>{{professor.name}}</td>
+                <td *ngFor="let time of professor.dateStatus"><span nz-icon [nzType]="time.status ? 'check' : 'close'"
+                                                                    nzTheme="outline"></span></td>
+            </tr>
             </tbody>
         </nz-table>
         <div class="d-flex justify-content-start my-1">
-            <nz-select [ngModel]="selectedfinalDateId" class="ps-1" nzShowSearch nzAllowClear
-                nzPlaceHolder="Select date" (ngModelChange)="updateSelectedfinalDateId($event)">
-                <nz-option *ngFor="let dateStatus of meetingDateStatus" [nzValue]="dateStatus.id"
-                    [nzLabel]="dateStatus.time"></nz-option>
+            <nz-select [ngModel]="selectedFinalDateId" class="ps-1" nzShowSearch nzAllowClear
+                       nzPlaceHolder="Select date" (ngModelChange)="updateSelectedFinalDateId($event)">
+                <nz-option *ngFor="let dateStatus of meetingDateStatus" [nzValue]="dateStatus"
+                           [nzLabel]="dateStatus.time"></nz-option>
             </nz-select>
-            <button nz-button nzType="primary" class="ms-2 " (click)="addProfessor()" [disabled]="!shouldAddProfessor">
+            <button nz-button nzType="primary" class="ms-2 " (click)="addFinalizeDate()"
+                    [disabled]="!shouldFinalizeDate">
                 finalize meeting
+            </button>
+        </div>
+        <div class="d-flex justify-content-start my-1">
+            <nz-select nzMode="multiple" [ngModel]="selectedDatesStatus" class="ps-1" nzShowSearch nzAllowClear
+                       nzPlaceHolder="Select dates" (ngModelChange)="updateSelectedProfessorTimes($event)">
+                <nz-option *ngFor="let dateStatus of meetingDateStatus" [nzValue]="dateStatus"
+                           [nzLabel]="dateStatus.time"></nz-option>
+            </nz-select>
+            <button nz-button nzType="primary" class="ms-2 " (click)="saveProfessorTimes()"
+                    [disabled]="!shouldSaveTimes">
+                save available times
             </button>
         </div>
     </div>

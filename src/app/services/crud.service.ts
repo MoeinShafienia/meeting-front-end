@@ -4,16 +4,19 @@ import {ProfessorStatus} from '../models/professor-status.model';
 import {HttpClient} from '@angular/common/http';
 import {DateStatus} from '../models/date-status.model';
 import {MeetingInfo} from '../models/meeting-info.model';
+import {Professor} from '../models/professor.model';
+import {Router} from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CrudService {
+    user$ = new BehaviorSubject<any>(null);
     private api = 'http://localhost:3000/api';
     private professorsStatus$ = new BehaviorSubject<Partial<ProfessorStatus>[]>([]);
     private meetingInfo$ = new BehaviorSubject<MeetingInfo>(null);
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
     }
 
     loadProfessorStatus(id: string): void {
@@ -45,7 +48,15 @@ export class CrudService {
         this.http.post(`${this.api}/meeting/${id}/date`, {
             startDate: rangeDate[0],
             endDate: rangeDate[1],
-        }).subscribe();
+        });
+    }
+
+    saveFinalizeDateStatus(id: number, dateId: number): void {
+        this.http.post(`${this.api}/meeting/${id}/finilize/${dateId}`, {}).subscribe(
+            (meetingInfo) => {
+                this.meetingInfo$.next({...meetingInfo as MeetingInfo});
+            }
+        );
     }
 
     getDateStatus(professorsStatus: Partial<ProfessorStatus>[], id: string): void {
@@ -68,15 +79,44 @@ export class CrudService {
         )
     }
 
-    addProfessor(id: number, professorId: string, description: string): void {
-        this.http.post(`${this.api}/meeting/${id}/addProfessor/${professorId}/${description}`, {}).subscribe(
+    addProfessor(id: number, professor: Professor, description: string): void {
+        this.http.post(`${this.api}/meeting/${id}/addProfessor/${professor.id}/${description}`, {}).subscribe(
             (res: any) => {
-                const profStatus = res as ProfessorStatus;
+                const profStatus: Partial<ProfessorStatus> = {
+                    id: professor.id,
+                    status: 'pending',
+                    dateStatus: null,
+                    description,
+                    name: professor.name,
+                };
                 const currentStatus = this.professorsStatus$.getValue();
                 currentStatus.push(profStatus);
                 this.professorsStatus$.next([...currentStatus]);
             }
         );
+    }
+
+    saveProfessorTimes(id: number, dateIds: number[]): void {
+        this.http.post(`${this.api}/meeting/${id}/setDate`, {
+            dateIds
+        }).subscribe(
+            (res: any) => {
+                this.loadMeeting(id.toString());
+            }
+        );
+    }
+
+    login(username: string, password: string): void {
+        this.http.post(`${this.api}/auth/login`, {
+            username,
+            password,
+        }).subscribe(
+            (res) => {
+                localStorage.setItem('user', JSON.stringify(res));
+                this.user$.next(res);
+                this.router.navigate(['/overview']);
+            }
+        )
     }
 
     getProfessorsStatus$(): Observable<Partial<ProfessorStatus>[]> {
@@ -85,5 +125,10 @@ export class CrudService {
 
     getMeetingInfo$(): Observable<MeetingInfo> {
         return this.meetingInfo$.asObservable();
+    }
+
+    logout(): void {
+        localStorage.removeItem('user');
+        this.user$.next(null);
     }
 }
