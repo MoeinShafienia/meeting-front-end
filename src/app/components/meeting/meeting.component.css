@@ -1,13 +1,17 @@
-.container{
-    margin: 50px;
-    padding: 50px;
+.meeting{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 0 40rem;
 }
 
-.studentsTable{
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-top: 2%;
-}
+/*.studentsTable{*/
+/*    margin-left: 15%;*/
+/*    margin-right: 15%;*/
+/*    margin-top: 2%;*/
+/*}*/
 
 
 
@@ -39,3 +43,6 @@ logo {
     border-radius: 5px;
 }
 
+nz-select {
+    width: 200px;
+}

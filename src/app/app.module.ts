@@ -27,6 +27,7 @@ import { EditstudentsComponent } from './components/editstudents/editstudents.co
 import { NzFormModule } from 'ng-zorro-antd/form';
 import {MeetingComponent} from './components/meeting/meeting.component';
 import { MeetingDetailComponent } from './components/meeting/meeting-detail/meeting-detail.component';
+import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
 
 registerLocaleData(en);
 
@@ -56,7 +57,8 @@ registerLocaleData(en);
     DragDropModule,
     ScrollingModule,
     HttpClientJsonpModule,
-    NzFormModule
+    NzFormModule,
+    NzDatePickerModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],
