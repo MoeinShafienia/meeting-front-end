@@ -37,6 +37,10 @@ export class CrudService {
         return this.http.get(`${this.api}/professor/test`);
     }
 
+    getDateStatus$(id: string): Observable<any> {
+        return this.http.get(`${this.api}/meeting/${id}/dateStatus`);
+    }
+
     saveDateRange(id: number, rangeDate: string[]): void {
         this.http.post(`${this.api}/meeting/${id}/date`, {
             startDate: rangeDate[0],
@@ -64,8 +68,8 @@ export class CrudService {
         )
     }
 
-    addProfessor(id: number, professorId: string): void {
-        this.http.post(`${this.api}/meeting/${id}/addProfessor/${professorId}/test`, {}).subscribe(
+    addProfessor(id: number, professorId: string, description: string): void {
+        this.http.post(`${this.api}/meeting/${id}/addProfessor/${professorId}/${description}`, {}).subscribe(
             (res: any) => {
                 const profStatus = res as ProfessorStatus;
                 const currentStatus = this.professorsStatus$.getValue();

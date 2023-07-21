@@ -3,6 +3,7 @@ import {ProfessorStatus} from '../../models/professor-status.model';
 import {CrudService} from '../../services/crud.service';
 import {MeetingInfo} from '../../models/meeting-info.model';
 import {Professor} from '../../models/professor.model';
+import { DateStatus } from 'src/app/models/date-status.model';
 
 @Component({
     selector: 'app-meeting',
@@ -18,6 +19,9 @@ export class MeetingComponent implements OnInit {
     dateRangeChanged: boolean;
     shouldAddProfessor: boolean;
     selectedProfessorId: string;
+    AddProfessorDescription: string;
+    selectedfinalDateId: number;
+    meetingDateStatus: DateStatus[]
 
     constructor(private crudService: CrudService) {
     }
@@ -39,6 +43,9 @@ export class MeetingComponent implements OnInit {
          this.crudService.getProfessors$().subscribe((professors) => {
              this.professors = professors;
          });
+         this.crudService.getDateStatus$('1').subscribe((dateStatus) => {
+            this.meetingDateStatus =    dateStatus
+        });
     }
 
     updateRangeDate(dateRange: any[]) {
@@ -59,8 +66,15 @@ export class MeetingComponent implements OnInit {
         }
     }
 
+    updateSelectedfinalDateId(dateId: number): void {
+        // if(professorId != null) {
+        //     this.shouldAddProfessor = true;
+        //     this.selectedProfessorId = professorId;
+        // }
+    }
+
     addProfessor(): void {
         this.shouldAddProfessor = false;
-        this.crudService.addProfessor(this.meetingInfo.id, this.selectedProfessorId);
+        this.crudService.addProfessor(this.meetingInfo.id, this.selectedProfessorId, this.AddProfessorDescription);
     }
 }
